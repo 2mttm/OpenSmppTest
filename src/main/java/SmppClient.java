@@ -77,14 +77,6 @@ public class SmppClient {
         }
     }
 
-    /**
-     * Ubinds (logs out) from the SMSC and closes the connection.
-     *
-     * See "SMPP Protocol Specification 3.4, 4.2 UNBIND Operation."
-     * @see Session#unbind()
-     * @see Unbind
-     * @see UnbindResp
-     */
     private static void unbind() {
         try {
 
@@ -104,16 +96,6 @@ public class SmppClient {
         }
     }
 
-    /**
-     * Creates a new instance of <code>SubmitSM</code> class, lets you set
-     * subset of fields of it. This PDU is used to send SMS message
-     * to a device.
-     *
-     * See "SMPP Protocol Specification 3.4, 4.4 SUBMIT_SM Operation."
-     * @see Session#submit(SubmitSM)
-     * @see SubmitSM
-     * @see SubmitSMResp
-     */
     private static void submit(String destAddress, String shortMessage, String sender, byte senderTon, byte senderNpi) {
         try {
             SubmitSM request = new SubmitSM();

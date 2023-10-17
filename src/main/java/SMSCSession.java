@@ -26,24 +26,12 @@ public class SMSCSession extends SmppObject implements Runnable{
     private boolean isReceiving = false;
     private int timeoutCntr = 0;
 
-    /**
-     * Initialises the session with the connection the session
-     * should communicate over.
-     * @param connection the connection object for communication with client
-     */
     public SMSCSession(Connection connection) {
         this.connection = connection;
         transmitter = new Transmitter(connection);
         receiver = new Receiver(transmitter, connection);
     }
 
-    /**
-     * Signals the session's thread that it should stop.
-     * Doesn't wait for the thread to be completly finished.
-     * Note that it can take some time before the thread is completly
-     * stopped.
-     * @see #run()
-     */
     public void stop() {
         debug.write("SMSCSession stopping");
         keepReceiving = false;
@@ -101,10 +89,6 @@ public class SMSCSession extends SmppObject implements Runnable{
         logger.info("SMSCSession exiting run()");
     }
 
-    /**
-     * Sends a PDU to the client.
-     * @param pdu the PDU to send
-     */
     public void send(PDU pdu) throws IOException, PDUException {
         timeoutCntr = 0;
         logger.info("SMSCSession going to send pdu over transmitter");
@@ -112,47 +96,24 @@ public class SMSCSession extends SmppObject implements Runnable{
         logger.info("SMSCSession pdu sent over transmitter");
     }
 
-    /**
-     * Sets the timeout for receiving the complete message.
-     * @param timeout the new timeout value
-     */
     public void setReceiveTimeout(long timeout) {
         receiveTimeout = timeout;
     }
 
-    /**
-     * Returns the current setting of receiving timeout.
-     * @return the current timeout value
-     */
     public long getReceiveTimeout() {
         return receiveTimeout;
     }
 
-    /**
-     * Returns the details about the account that is logged in to this session
-     * @return An object representing the account. It is casted to the correct type by the implementation
-     */
     public Object getAccount() {
         return null;
     }
 
-    /**
-     * Set details about the account that is logged in to this session
-     * @param account An object representing the account. It is casted to the correct type by the implementation
-     */
-    public void setAccount(Object account) {
-    }
+    public void setAccount(Object account) {}
 
-    /**
-     * @return Returns the isReceiving.
-     */
     public boolean isReceiving() {
         return isReceiving;
     }
 
-    /**
-     * @param isReceiving The isReceiving to set.
-     */
     public void setReceiving(boolean isReceiving) {
         this.isReceiving = isReceiving;
     }
@@ -161,12 +122,3 @@ public class SMSCSession extends SmppObject implements Runnable{
         return connection;
     }
 }
-/*
- * $Log: not supported by cvs2svn $
- * Revision 1.1  2003/09/30 09:17:49  sverkera
- * Created an interface for SMSCListener and SMSCSession and implementations of them  so that it is possible to provide other implementations of these classes.
- *
- * Revision 1.1  2003/07/23 00:28:39  sverkera
- * Imported
- *
- */
